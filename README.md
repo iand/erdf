@@ -428,30 +428,13 @@ This section lists some common schemas in a format suitable for including in an 
 
 The following implementations of the embedding scheme described in this document are available:
 
-* [An XSLT stylesheet implementing the rules described in this document](http://purl.org/NET/erdf/extract)
+* [An XSLT stylesheet implementing the rules described in this document](http://purl.org/NET/erdf/extract) (**Editorial Note:** now at https://github.com/iand/erdf/blob/master/extract-rdf.xsl)
 * [A transformation service using the above stylesheet](http://purl.org/NET/erdf/extract)
 * [Embeddable RDF parser](http://arc.web-semantics.org/documentation/erdf_parser) in [ARC](http://arc.web-semantics.org/), see [webservice](http://arc.web-semantics.org/demos/erdf-extract)
 
 # Further Reading
 
 **Editorial Note:** These links have been moved to the github [repository wiki](https://github.com/iand/erdf/wiki)
-
-* Limitations of Embedding RDF in HTML
-* Summary of Triple Production Rules
-* FOAF in HTML
-* DOAP in HTML
-* RSS in HTML
-* RDF Schemas in HTML
-* Embedded RDF Profile Document 
-
-**Editorial Note:** Ian Davis wrote several blog posts about erdf:
-
-* [Naked Metadata Using Embedded RDF](http://blog.iandavis.com/2005/11/09/naked-metadata-using-embedded-rdf/)
-* [Enhancing Embedded RDF](http://blog.iandavis.com/2005/11/09/enhancing-embedded-rdf/)
-* [Embedded Trackbacks](http://blog.iandavis.com/2005/11/10/embedded-trackbacks/)
-* [Classes In Embedded RDF](http://blog.iandavis.com/2005/11/14/classes-in-embedded-rdf/)
-* [Towards Copy and Paste eRDF](http://blog.iandavis.com/2006/06/14/towards-copy-and-paste-erdf/)
-
 
 # References
 
