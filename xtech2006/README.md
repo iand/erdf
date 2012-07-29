@@ -1,0 +1,1 @@
+This directory contains a presentation that [Ian Davis](http://iandavis.com/) gave on 19 May 2006 at the XTech 2006 conference in Amsterdam.
