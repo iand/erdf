@@ -3,6 +3,7 @@ This specification describes an early attempt at combining RDF data with HTML ma
 
 Notes that have been added as part of this reconstruction are prefixed with the bold text **Editorial Note**
 
+See the [wiki](https://github.com/iand/erdf/wiki) for more information
 
 # Introduction
 
