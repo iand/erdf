@@ -1,0 +1,584 @@
+<!--?xml version="1.0"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta name="generator" content="HTML Tidy for Linux/x86 (vers 1st November 2003), see www.w3.org">
+<title>An Introduction to Embedded RDF - XTech 2006 (1)</title>
+<meta name="copyright" content="Copyright © 2006 Talis Information Ltd.">
+<link rel="stylesheet" href="xtech2006_files/show.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="xtech2006_files/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="xtech2006_files/talis.css" type="text/css" media="screen, projection">
+<script src="xtech2006_files/slidy.js" type="text/javascript">
+</script>
+
+<style>
+.subj { background-color: #FF6633; }
+.pred { background-color: #66FF33; }
+.obj { background-color: #CC66FF; }
+</style>
+
+</head>
+<body style="font-size: 18pt;">
+<div style="display: block; visibility: visible;" class="background"><img alt="" id="head-icon" src="xtech2006_files/talislogo-small.html" align="left"> </div>
+
+
+
+<div style="display: block; visibility: visible; position: absolute; border-style: none;" class="slide">
+<h1>An Introduction to Embedded RDF</h1>
+<h3><a href="http://purl.org/NET/iand">Ian Davis</a>,
+&lt;<a href="mailto:ian.davis@talis.com">ian.davis@talis.com</a>&gt;</h3>
+<h4>Platform Programme Manager</h4>
+<h4><a href="http://www.talis.com/">Talis Information Ltd.</a></h4>
+<!--
+<p><small>This slide show can be driven in the same way as Power Point. To advance to the next slide click anywhere on the page with the mouse, or press the space bar. You can move forwards or backwards through the slides with the Cursor left, Cursor right, Pg Up and Pg Dn keys. The font size is automatically adjusted to match the browser's window width, but you can also adjust it manually using the "S" key for smaller and the "B" key for bigger. You can also use the "<" and ">" keys. Before printing, use the "A" key to toggle between current slide and all slides. Use the "F" key to switch off/on the bottom status line. The "K" key toggles the use of mouse click to advance to the next slide. You can use "C" to show the table of contents and any other key to hide it. Use the "F11" key to toggle the browser's full screen mode. Note that not all keys are supported in all browsers, as browsers may reserve some keys for browser control and this varies from one browser to the next.</small></p>
+-->
+<br><br></div>
+
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>What is it?</h1>
+<ul class="incremental">
+  <li>A way of embedding a subset of RDF into XHTML documents</li>
+  <li>Uses idiomatic XHTML - no new elements</li>
+  <li>CSS-friendly</li>
+</ul>
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Some History</h1>
+<ul class="incremental">
+   <li>1996 - W3C
+    <ul class="incremental">
+      <li>A Proposed Convention for Embedding Metadata in HTML</li>
+      <li><a href="http://tinyurl.com/f7r5g">http://tinyurl.com/f7r5g</a></li>
+      <li><code>&lt;META NAME="DC.title" CONTENT="HTML 2.0 Specification"&gt;</code></li>
+      <li><code>&lt;LINK REL = SCHEMA.dc HREF = "http://purl.org/metadata/dublin_core"&gt;</code></li>
+    </ul>
+  </li>
+  <li>2003 - Dublin Core
+    <ul class="incremental">
+      <li>Expressing Dublin Core in HTML</li>
+      <li><a href="http://www.dublincore.org/documents/dcq-html/">http://www.dublincore.org/documents/dcq-html/</a></li>
+    </ul>
+  </li>
+</ul>
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Principles</h1>
+<ul class="incremental">
+  <li>Visible metadata</li>
+  <li>Don't repeat yourself</li>
+  <li>Reuse not reinvention</li>
+</ul>
+<br><br></div>
+
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Visible Metadata</h1>
+<ul class="incremental">
+  <li>Easier to trust</li>
+  <li>Easier to spot stale metadata</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Don't repeat yourself</h1>
+<ul class="incremental">
+  <li>Easier to keep in synch</li>
+  <li>Express once for both humans and machines</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Reuse not reinvention</h1>
+<ul class="incremental">
+  <li>Reuse existing formats</li>
+  <li>Can use existing tools to author and read</li>
+  <li>Reuse people's experience</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>How?</h1>
+<ul class="incremental">
+  <li>Profile</li>
+  <li>Schema declarations</li>
+  <li>Metadata in Head</li>
+  <li>Metadata in Body</li>
+</ul>
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Profile</h1>
+<ul class="incremental">
+  <li>Add URI in profile attribute of &lt;head&gt;</li>
+  <li>Marks document as containing embedded RDF</li>
+  <li><pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    ...
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+  &lt;/body&gt;
+
+&lt;/html&gt;</pre>
+</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Multiple Profiles</h1>
+<ul class="incremental">
+  <li>Profile attribute is space delimited list of URIs</li>
+  <li><pre>&lt;head profile="uri uri uri"&gt;</pre></li>
+  <li>Applications mustn't assume single URI</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Schema Declarations</h1>
+<ul class="incremental">
+  <li>Use meta tags in &lt;head&gt;</li>
+  <li>Associate short prefix with URI</li>
+  <li><pre>&lt;link rel="schema.prefix" href="uri" /&gt;</pre></li>
+  <li>Prefix is case-insensitive</li>
+  <li>So <em>schema.foaf</em> and <em>schema.FoaF</em> are same</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Schema Declarations Abbreviate Properties</h1>
+<ul class="incremental">
+  <li>Schema prefix helps encode property URIs</li>
+  <li>Encoded by concatenating...
+    <ul class="incremental">
+      <li>schema prefix</li>
+      <li>hyphen (-) or dot (.)</li>
+      <li>local name of property</li>
+    </ul>
+ </li>
+ <li><em>foaf.name</em> might represent</li>
+ <li>http://xmlns.com/foaf/0.1/name</li>
+</ul><br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Schema Declarations Compatibility</h1>
+<ul class="incremental">
+  <li>Use dot (.) notation in &lt;head&gt;</li>
+  <li>Backwards compatible with Dublin Core</li>
+  <li>Use dash (-) notation in &lt;body&gt;</li>
+  <li>Forwards compatible with CSS</li>
+  <li>But both are valid</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Head</h1>
+<ul class="incremental">
+  <li>Represents metadata about the current document</li>
+  <li>&lt;meta&gt; used to represent triples with literal values</li>
+  <li>&lt;link&gt; used to represent triples with resource values</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Head - Literal Values</h1>
+<ul class="incremental">
+  <li>Property encoded in name attribute</li>
+  <li>Value in content attribute</li>
+  <li><pre>&lt;meta name="dc.creator" content="Ian Davis" /&gt;</pre></li>
+  <li>represents</li>
+  <li><pre>&lt;&gt; dc:creator "Ian Davis" .</pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Head - Resource Values</h1>
+<ul class="incremental">
+  <li>Property encoded in <em>rel</em> or <em>rev</em> attribute</li>
+  <li>URI of resource value in href attribute</li>
+  <li><pre>&lt;link rel="foaf.maker" href="#ian" /&gt;</pre></li>
+  <li>represents</li>
+  <li><pre>&lt;&gt; foaf:maker &lt;#ian&gt; . </pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Head - Multiple Rel</h1>
+<ul class="incremental">
+  <li>Multiple properties can be encoded in single rel value</li>
+  <li<pre>&lt;link 
+  rel="foaf.maker dc.creator foaf.topic" 
+  href="#ian" /&gt;
+  <li>represents</li>
+  <li><pre>&lt;&gt; foaf:maker &lt;#ian&gt; .
+&lt;&gt; dc:creator &lt;#ian&gt; .
+&lt;&gt; foaf:topic &lt;#ian&gt; .</pre></li>
+</li<pre></ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Head - Rev</h1>
+<ul class="incremental">
+  <li>Swaps subject and object</li>
+  <li>Current document becomes object</li>
+  <li>Subject URI encoded in href</li>
+  <li><pre>&lt;link rev="foaf.made" href="#ian" /&gt;</pre></li>
+  <li>represents</li>
+  <li><pre>&lt;#ian&gt; foaf:made &lt;&gt; .</pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Body</h1>
+<ul class="incremental">
+  <li>Triples can describe
+    <ul class="incremental">
+      <li>current document</li>
+      <li>resources named with id attributes</li>
+    </ul>
+  </li>
+  <li>Literal values embedded using elements with class attribute</li>
+  <li>Resource values embedded using anchor elements</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Body - Literal Values</h1>
+<ul class="incremental">
+  <li>Use class attribute to encode property</li>
+  <li>Value is either
+    <ul class="incremental">
+      <li>title attribute if present</li>
+      <li>string value of element (as xslt function)</li>
+    </ul>
+  </li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Body - Simple Example</h1>
+<ul class="incremental">
+  <li>Using string value of element for value</li>
+  <li><pre>&lt;div&gt;
+  &lt;address class="dc-creator"&gt;Ian Davis&lt;/address&gt; 
+  wrote this
+&lt;/div&gt;</pre></li>
+  <li>represents</li>
+  <li><pre>&lt;&gt; dc:creator "Ian Davis" .</pre></li>
+</ul>
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Body - Title Example</h1>
+<ul class="incremental">
+  <li>Using title attribute of element for value</li>
+  <li><pre>&lt;div&gt;
+  &lt;span class="dc-creator" title="Ian Davis"&gt;I&lt;/span&gt; 
+  wrote this
+&lt;/div&gt;</pre></li>
+  <li>represents same triple as before</li>
+  <li><pre>&lt;&gt; dc:creator "Ian Davis" .</pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata in Body - Resources</h1>
+<ul class="incremental">
+  <li>Similar to link</li>
+  <li><em>rel</em> attribute encodes the property name</li>
+  <li><em>href</em> attribute representes the URI of the value resource</li>
+  <li><pre>&lt;a rel="foaf.homepage" 
+   href="http://example.org/home"&gt;my home page&lt;/a&gt;</pre></li>
+  <li>represents</li>
+  <li><pre>&lt;&gt; foaf:homepage &lt;http://example.org/home&gt; .</pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Inferred Labels from Anchors</h1>
+<ul class="incremental">
+  <li>Anchors infer <em>rdfs:label</em> properties</li>
+  <li>Value is either
+    <ul class="incremental">
+      <li>title attribute if present</li>
+      <li>string value of anchor (as xslt function)</li>
+    </ul>
+  </li>
+  <li><pre>&lt;a rel="foaf.homepage" 
+   href="http://example.org/home"&gt;my home page&lt;/a&gt;</pre></li>
+  <li>infers</li>
+  <li><pre>&lt;http://example.org/home&gt; rdfs:label "my home page" .</pre></li>
+</ul><br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Metadata About Other Things</h1>
+<ul class="incremental">
+  <li><em>id</em> attribute used to define resources within current document</li>
+  <li><em>id</em> used as subject URI based on current document</li>
+  <li>Triples within descendants inherit the subject</li>
+  <li><pre>&lt;p id="ian"&gt;
+  &lt;span class="foaf-name"&gt;Ian Davis&lt;/span&gt; 
+  wrote this
+&lt;/p&gt;</pre></li>
+  <li>represents</li>
+  <li><pre>&lt;#ian&gt; foaf:name "Ian Davis" .
+</pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Combinations</h1>
+<ul class="incremental">
+  <li>Elements with both <em>class</em> and <em>id</em> attributes</li>
+  <li>Anchors with <em>class</em> and <em>rel</em> attributes</li>
+  <li>Anchors with <em>rel</em> and <em>rev</em> attributes</li>
+  <li>Anchors with <em>rel</em> and <em>id</em> attributes</li>
+  <li>Anchors with <em>rel</em>, <em>rev</em>, <em>class</em> and <em>id</em> attributes</li>
+  <li>Anchors with <em>rel</em> or <em>rev</em> but no <em>href</em> attribute</li>
+  <li><a href="http://research.talis.com/2005/erdf/wiki/Main/RdfInHtml">See the wiki!</a></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="http://example.org/about" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="foaf-maker" rev="foaf-homepage foaf-made" href="#anna" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="anna"&gt;
+      I'm &lt;span class="foaf-name"&gt;&lt;span class="foaf-firstName"&gt;Anna&lt;/span&gt;
+      &lt;span class="foaf-surname"&gt;Wilder&lt;/span&gt;&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>  
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="<span class="subj">http://example.org/about</span>" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="<span class="pred">foaf-maker</span>" rev="foaf-homepage foaf-made" href="<span class="obj">#anna</span>" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="anna"&gt;
+      I'm &lt;span class="foaf-name"&gt;&lt;span class="foaf-firstName"&gt;Anna&lt;/span&gt;
+      &lt;span class="foaf-surname"&gt;Wilder&lt;/span&gt;&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre style="border:1px solid #cccccc; padding: 2px;"><span class="subj">&lt;http://example.org/about&gt;</span> <span class="pred">foaf:maker</span> <span class="obj">&lt;http://example.org/about#anna&gt;</span> .</pre>
+
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="<span class="obj">http://example.org/about</span>" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="foaf-maker" rev="<span class="pred">foaf-homepage</span> foaf-made" href="<span class="subj">#anna</span>" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="anna"&gt;
+      I'm &lt;span class="foaf-name"&gt;&lt;span class="foaf-firstName"&gt;Anna&lt;/span&gt;
+      &lt;span class="foaf-surname"&gt;Wilder&lt;/span&gt;&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre style="border:1px solid #cccccc; padding: 2px;"><span class="subj">&lt;http://example.org/about#anna&gt;</span> <span class="pred">foaf:homepage</span> <span class="obj">&lt;http://example.org/about&gt;</span> .</pre>
+
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="<span class="obj">http://example.org/about</span>" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="foaf-maker" rev="foaf-homepage <span class="pred">foaf-made</span>" href="<span class="subj">#anna</span>" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="anna"&gt;
+      I'm &lt;span class="foaf-name"&gt;&lt;span class="foaf-firstName"&gt;Anna&lt;/span&gt;
+      &lt;span class="foaf-surname"&gt;Wilder&lt;/span&gt;&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre style="border:1px solid #cccccc; padding: 2px;"><span class="subj">&lt;http://example.org/about#anna&gt;</span> <span class="pred">foaf:made</span> <span class="obj">&lt;http://example.org/about&gt;</span> .</pre>
+
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="http://example.org/about" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="foaf-maker" rev="foaf-homepage foaf-made" href="#anna" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="<span class="subj">anna</span>"&gt;
+      I'm &lt;span class="foaf-name"&gt;&lt;span class="<span class="pred">foaf-firstName</span>"&gt;<span class="obj">Anna</span>&lt;/span&gt;
+      &lt;span class="foaf-surname"&gt;Wilder&lt;/span&gt;&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre style="border:1px solid #cccccc; padding: 2px;"><span class="subj">&lt;http://example.org/about#anna&gt;</span> <span class="pred">foaf:firstName</span> <span class="obj">"Anna"</span> .</pre>
+
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="http://example.org/about" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="foaf-maker" rev="foaf-homepage foaf-made" href="#anna" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="<span class="subj">anna</span>"&gt;
+      I'm &lt;span class="foaf-name"&gt;&lt;span class="foaf-firstName"&gt;Anna&lt;/span&gt;
+      &lt;span class="<span class="pred">foaf-surname</span>"&gt;<span class="obj">Wilder</span>&lt;/span&gt;&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre style="border:1px solid #cccccc; padding: 2px;"><span class="subj">&lt;http://example.org/about#anna&gt;</span> <span class="pred">foaf:surname</span> <span class="obj">"Wilder"</span> .</pre>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Worked Example</h1>
+<pre>&lt;html&gt;
+  &lt;head profile="http://purl.org/NET/erdf/profile"&gt;
+    &lt;base href="http://example.org/about" /&gt;
+    &lt;title&gt;Anna's Homepage&lt;/title&gt;
+    &lt;link rel="schema.foaf" href="http://xmlns.com/foaf/0.1/" /&gt;
+    &lt;link rel="foaf-maker" rev="foaf-homepage foaf-made" href="#anna" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h2&gt;About me...&lt;/h2&gt;
+    &lt;p id="<span class="subj">anna</span>"&gt;
+      I'm &lt;span class="<span class="pred">foaf-name</span>"&gt;<span class="obj">&lt;span class="foaf-firstName"&gt;Anna&lt;/span&gt;
+      &lt;span class="foaf-surname"&gt;Wilder&lt;/span&gt;</span>&lt;/span&gt;. 
+      You might know me from IRC as &lt;span class="foaf-nick"&gt;wildling&lt;/span&gt;!
+    &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<pre style="border:1px solid #cccccc; padding: 2px;"><span class="subj">&lt;http://example.org/about#anna&gt;</span> <span class="pred">foaf:name</span> <span class="obj">"Anna Wilder"</span> .</pre>
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Other Examples</h1>
+<ul class="incremental">
+  <li><a href="http://research.talis.com/2005/erdf/doap-in-html.html">DOAP</a> and the <a href="http://research.talis.com/2005/erdf/extract?uri=http%3A%2F%2Fresearch.talis.com%2F2005%2Ferdf%2Ffoaf-in-html.html">extracted RDF</a></li>
+  <li><a href="http://iandavis.com/">my home page</a> and the <a href="http://research.talis.com/2005/erdf/extract?uri=http%3A%2F%2Fiandavis.com%2F">extracted RDF</a></li>
+  <li><a href="http://www.w3.org/People/Connolly/">Dan Connolly's home page</a> and the <a href="http://research.talis.com/2005/erdf/extract?uri=http%3A%2F%2Fwww.w3.org%2FPeople%2FConnolly%2F">extracted RDF</a></li>
+  <li><a href="http://arc.web-semantics.org/home">ARC parser page</a> and the <a href="http://purl.org/NET/erdf/extract?uri=http://arc.web-semantics.org/home">extracted RDF</a></li>
+</ul>
+
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Extraction</h1>
+<ul class="incremental">
+    <li>XSLT: <a href="http://purl.org/NET/erdf/extract-rdf.xsl">http://purl.org/NET/erdf/extract-rdf.xsl</a></li>
+    <li>Online service: <a href="http://purl.org/NET/erdf/extract">http://purl.org/NET/erdf/extract</a></li>
+    <li>GRDDL compatible</li>
+</ul>
+
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Limitations</h1>
+<ul class="incremental">
+    <li>Blank nodes - every node must be identified by a URI or literal text</li>
+    <li>Containers - rdf:Bag, rdf:Seq and rdf:Alt are all omitted</li>
+    <li>XML Literals, Datatyped literals - all literals are assumed to be plain</li>
+    <li>Subjects must be within document if object is resource</li>
+    <li>80% solution</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>What About Microformats?</h1>
+<ul class="incremental">
+    <li>Complementary</li>
+    <li>Can mix class names from microformats with embedded rdf</li>
+    <li><pre>&lt;li class="vevent  foaf-currentProject" id="sxsw2006"&gt;</pre></li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>What About RDFa?</h1>
+<ul class="incremental">
+    <li>Not compatible</li>
+    <li>Partial convergence, allow colon as prefix/name separator</li>
+    <li>RDFa requires new <em>role</em> and <em>property</em> attributes</li>
+    <li>RDFa more explicit but is new dialect of XHTML</li>
+</ul>
+<br><br></div>
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>Next Steps</h1>
+<ul class="incremental">
+    <li>Test suite!</li>
+    <li>Implementation experiences</li>
+    <li>Enable migration to RDFa if possible</li>
+</ul>
+<br><br></div>
+
+
+<div style="display: none; visibility: hidden; position: absolute; border-style: none;" class="slide">
+<h1>The End!</h1>
+<ul class="incremental">
+  <li>That's enough for now...</li>
+  <li>Find out more at: <a href="http://research.talis.com/2005/erdf/wiki">http://research.talis.com/2005/erdf/wiki</a></li>
+  <li>Slides available at <a href="http://research.talis.com/2005/erdf/xtech2006.html">http://research.talis.com/2005/erdf/xtech2006.html</a></li>
+</ul>
+<br><br></div>
+
+
+
+
+<div style="display: block; visibility: visible;" class="toolbar"><div style="float: right; text-align: right"><div>slide 1/40</div></div><div style="text-align: left"><span style="color: rgb(240, 240, 240);">* </span><a title="Navigate with click, space bar, Pg Up or Pg Dn. Use &lt; and &gt; (or - and + on number pad) to change font size." href="http://www.w3.org/Talks/Tools/Slidy/help.html">help?</a> <a title="restart presentation" href="http://web.archive.org/web/20080906194744id_/http://research.talis.com/2005/erdf/xtech2006.html">restart?</a><span style="color: black; margin-left: 4em;">Copyright © 2006 Talis Information Ltd.</span></div></div></body></html>
