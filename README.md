@@ -443,7 +443,7 @@ The following implementations of the embedding scheme described in this document
 * RDF Schemas in HTML
 * Embedded RDF Profile Document 
 
-Ian Davis wrote several blog posts about erdf:
+**Editorial Note:** Ian Davis wrote several blog posts about erdf:
 
 * [Naked Metadata Using Embedded RDF](http://blog.iandavis.com/2005/11/09/naked-metadata-using-embedded-rdf/)
 * [Enhancing Embedded RDF](http://blog.iandavis.com/2005/11/09/enhancing-embedded-rdf/)
