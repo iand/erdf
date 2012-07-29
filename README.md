@@ -1,5 +1,5 @@
 # Historical Note
-This specification describes an early attempt at combining RDF data with HTML markup and was originally authored by [Ian Davis](http://iandavis.com/) while he was at Talis in 2005. It was originally published at http://research.talis.com/2005/erdf/wiki/Main/RdfInHtml but has not been available on the web since about 2009. This repository was reconstructed using the Internet Archive.  
+This specification describes an early attempt at combining RDF data with HTML markup and was originally authored by [Ian Davis](http://iandavis.com/) while he was at Talis in 2005. It was originally published at http://research.talis.com/2005/erdf/wiki/Main/RdfInHtml but has not been available on the web since about 2009. This repository was reconstructed using the Internet Archive. Note that this specification is obsolete, superceded by [RDFa](http://www.w3.org/TR/rdfa-lite/) and [Microdata](http://www.w3.org/TR/microdata/) which both address this problem space.
 
 Notes that have been added as part of this reconstruction are prefixed with the bold text **Editorial Note**
 
