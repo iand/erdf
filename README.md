@@ -1,3 +1,9 @@
+# Historical Note
+This specification describes an early attempt at combining RDF data with HTML markup and was originally authored by [Ian Davis](http://iandavis.com/) while he was at Talis in 2005. It was originally published at http://research.talis.com/2005/erdf/wiki/Main/RdfInHtml but has not been available on the web since about 2009. This repository was reconstructed using the Internet Archive.  
+
+Notes that have been added as part of this reconstruction are prefixed with the bold text **Editorial Note**
+
+
 # Introduction
 
 This document describes how a subset of RDF can be embedded into XHTML or HTML by using common idioms and attributes. No new elements or attributes have been invented and the usages of the HTML attributes are within normal bounds. This scheme is designed to work with CSS and other HTML support technologies.
@@ -100,13 +106,13 @@ The schema prefix should be considered to be case-insensitive, i.e. schema.foaf 
 
 # Encoding Properties
 
-Once declared, the schema prefix can be used to encode property UR Is defined within that schema by concatenating the schema prefix, a hypen (-) or dot (.) and the local name of the property. For example supposing the schema http://xmlns.com/foaf/0.1/ has been assigned the prefix foaf using a link tag as described above. Then the RDF property http://xmlns.com/foaf/0.1/name could be encoded to as foaf-name or as foaf.name.
+Once declared, the schema prefix can be used to encode property URIs defined within that schema by concatenating the schema prefix, a hypen (-) or dot (.) and the local name of the property. For example supposing the schema http://xmlns.com/foaf/0.1/ has been assigned the prefix foaf using a link tag as described above. Then the RDF property http://xmlns.com/foaf/0.1/name could be encoded to as foaf-name or as foaf.name.
 
 The reason why two alternate forms are specified is to retain compatibility with the Dublin Core specification and also to ensure compatibility with CSS which uses dots to separate element names from classes for HTML documents. It is recommended that authors use the dot separator in the head of the document and the hyphen separator in the body of the document.
 
 # Writing Metadata About The Current Document
 
-In general, metadata about the current document is placed in the <head> section. Two elements can be used here to represent triples. The first is the meta element which can be used to embed triples with literal values. The property is encoded in the name attribute and the literal value is placed in the content attribute.
+In general, metadata about the current document is placed in the &lt;head&gt; section. Two elements can be used here to represent triples. The first is the meta element which can be used to embed triples with literal values. The property is encoded in the name attribute and the literal value is placed in the content attribute.
 
 For example:
 
@@ -238,12 +244,12 @@ represents the following triple:
 
 For tags with an id attribute and for anchors any tokens in the class attribute beginning with a hyphen are considered to be RDF class names. So the following XHTML:
 
-  <p id="ian" class="-foaf-Person">I am a person</p>
+    <p id="ian" class="-foaf-Person">I am a person</p>
 
 generates the following triple:
 
  
-  <#ian> rdf:type foaf:Person .
+    <#ian> rdf:type foaf:Person .
 
 
 A more complex example:
@@ -269,9 +275,9 @@ Or one with mixed properties and classes in the class attribute:
 
 Which embeds the following triples:
  
-  <#ian> rdf:type foaf:Person .
-  <#ian> foaf:knows <#eric> .
-  <#eric> rdf:type foaf:Person .
+    <#ian> rdf:type foaf:Person .
+    <#ian> foaf:knows <#eric> .
+    <#eric> rdf:type foaf:Person .
 
 # Combinations
 
@@ -427,7 +433,7 @@ The following implementations of the embedding scheme described in this document
 
 # Further Reading
 
-**Editorial Note:** These links have been moved to the github repository wiki
+**Editorial Note:** These links have been moved to the github [repository wiki](https://github.com/iand/erdf/wiki)
 
 * Limitations of Embedding RDF in HTML
 * Summary of Triple Production Rules
@@ -436,6 +442,15 @@ The following implementations of the embedding scheme described in this document
 * RSS in HTML
 * RDF Schemas in HTML
 * Embedded RDF Profile Document 
+
+Ian Davis wrote several blog posts about erdf:
+
+* [Naked Metadata Using Embedded RDF](http://blog.iandavis.com/2005/11/09/naked-metadata-using-embedded-rdf/)
+* [Enhancing Embedded RDF](http://blog.iandavis.com/2005/11/09/enhancing-embedded-rdf/)
+* [Embedded Trackbacks](http://blog.iandavis.com/2005/11/10/embedded-trackbacks/)
+* [Classes In Embedded RDF](http://blog.iandavis.com/2005/11/14/classes-in-embedded-rdf/)
+* [Towards Copy and Paste eRDF](http://blog.iandavis.com/2006/06/14/towards-copy-and-paste-erdf/)
+
 
 # References
 
